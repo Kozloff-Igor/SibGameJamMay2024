@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,7 @@ public class NewBehaviourScript : MonoBehaviour
 
 
     [SerializeField]private GameObject settingsMenu;
+    [SerializeField]private GameObject notesAndPicture;
 
     //настройки
     public void ClickSettings()
@@ -24,11 +26,14 @@ public class NewBehaviourScript : MonoBehaviour
     public void ClickPlayGame()
     {
         settingsMenu.SetActive(false);
+        Test.LoadScene();
     }
     
     public void ClickInventory()
     {
         settingsMenu.SetActive(false);
+        notesAndPicture.SetActive(true);
+        Test.OpenInventory?.Invoke();
     }
     //выход
     public void ClickQuit()
