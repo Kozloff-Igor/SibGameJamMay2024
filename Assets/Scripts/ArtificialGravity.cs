@@ -18,6 +18,8 @@ public class ArtificialGravity : MonoBehaviour
     public AnimationCurve gravityOverDistance;
     public float grav = 9.8f;
 
+    bool currentlyHooking;
+
     void Awake()
     {
         GameObject[] g = GameObject.FindGameObjectsWithTag("HaveGravity");
@@ -33,7 +35,7 @@ public class ArtificialGravity : MonoBehaviour
     }
 
     void FixedUpdate()
-    {
+    {        
         closestAsteroid = ClosestAsteroidWithGravity();
         Vector3 dir = (closestAsteroid.position - (player.position)).normalized;
         //Ray ray = new Ray(player.position - player.up * 0.7f, dir);
@@ -67,17 +69,21 @@ public class ArtificialGravity : MonoBehaviour
             }
         }
         //Quaternion lookRot = Quaternion.LookRotation(player.forward, transform.up);
-        Vector3 projForwNoNorm = player.forward - Vector3.Project(player.forward, -dir);
+        Vector3 projForwNoNorm = (player.forward - Vector3.Project(player.forward, -dir)).normalized;
 
         Quaternion lookRot = Quaternion.LookRotation(player.forward, -dir);
-        //if (stickMode == StickMode.DownToNormal)
+        lookRot = Quaternion.LookRotation(projForwNoNorm, -dir);
+        if (stickMode == StickMode.DownToNormal)
         {
-            lookRot = Quaternion.LookRotation(player.forward, hit.normal);
+            //lookRot = Quaternion.LookRotation(player.forward, hit.normal);
+            projForwNoNorm = (player.forward - Vector3.Project(player.forward, hit.normal)).normalized;
             lookRot = Quaternion.LookRotation(projForwNoNorm, hit.normal);
+        //    lookRot = Quaternion.LookRotation(projForwNoNorm, -dir);
         }
         transform.rotation = lookRot;
 
-        Quaternion playerTargetRot = Quaternion.RotateTowards(playerRb.rotation, transform.rotation, 190f * Time.deltaTime);
+        //Quaternion playerTargetRot = Quaternion.RotateTowards(playerRb.rotation, transform.rotation, 190f * Time.deltaTime);
+        Quaternion playerTargetRot = Quaternion.RotateTowards(playerRb.rotation, transform.rotation, 290f * Time.deltaTime);
         playerRb.MoveRotation(playerTargetRot);
     }
 
