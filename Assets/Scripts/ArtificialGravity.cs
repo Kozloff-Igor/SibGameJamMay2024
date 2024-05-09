@@ -36,19 +36,20 @@ public class ArtificialGravity : MonoBehaviour
     {
         closestAsteroid = ClosestAsteroidWithGravity();
         Vector3 dir = (closestAsteroid.position - (player.position)).normalized;
-        Ray ray = new Ray(player.position - player.up * 0.7f, dir);
+        //Ray ray = new Ray(player.position - player.up * 0.7f, dir);
+        Ray ray = new Ray(player.position, dir);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 500, gravityOnly))
         {
             if (stickMode == StickMode.DownToPivot)
             {
                 transform.position = hit.point - dir;
-                transform.up = -dir;
+                //transform.up = -dir;
             }
             else
             {
-                transform.position = hit.point - hit.normal;
-                transform.up = hit.normal;
+                transform.position = hit.point + hit.normal;
+                //transform.up = hit.normal;
             }
 
             float dist = Vector3.Distance(hit.point, player.position);
@@ -61,11 +62,19 @@ public class ArtificialGravity : MonoBehaviour
             {
                 if (Vector3.SqrMagnitude(transform.position - playerRb.position) > 0.01f) //no sliding on cube planets
                 {
-                    playerRb.AddForce(dir * grav, ForceMode.Force);
+                    playerRb.AddForce(dir * gravForce, ForceMode.Force);
                 }
             }
         }
-        Quaternion lookRot = Quaternion.LookRotation(player.forward, transform.up);
+        //Quaternion lookRot = Quaternion.LookRotation(player.forward, transform.up);
+        Vector3 projForwNoNorm = player.forward - Vector3.Project(player.forward, -dir);
+
+        Quaternion lookRot = Quaternion.LookRotation(player.forward, -dir);
+        //if (stickMode == StickMode.DownToNormal)
+        {
+            lookRot = Quaternion.LookRotation(player.forward, hit.normal);
+            lookRot = Quaternion.LookRotation(projForwNoNorm, hit.normal);
+        }
         transform.rotation = lookRot;
 
         Quaternion playerTargetRot = Quaternion.RotateTowards(playerRb.rotation, transform.rotation, 190f * Time.deltaTime);
@@ -78,6 +87,22 @@ public class ArtificialGravity : MonoBehaviour
         {
             magneticBoots = !magneticBoots; 
             playerRb.isKinematic = magneticBoots;
+        }
+        if (Input.GetKeyDown(KeyCode.Q)){
+            Debug.Break();
+        }
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            if (stickMode == StickMode.DownToPivot)
+            {
+                stickMode = StickMode.DownToNormal;
+                return;
+            }
+            if (stickMode == StickMode.DownToNormal)
+            {
+                stickMode = StickMode.DownToPivot;
+                return;
+            }
         }
 
     }
