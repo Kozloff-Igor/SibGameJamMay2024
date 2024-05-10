@@ -62,6 +62,8 @@ public class Hook : MonoBehaviour
                 if (grabbedToThis == currentHookablePoint) return;
                 grabbedToThis = currentHookablePoint;
                 hookBehavior = HookBehavior.FlyingToGrab;
+                SoundsController.Instance.PlaySound(SoundClipType.HookThrow);
+                SoundsController.Instance.PlayHookLoop(false);
                 hookTr.position = hookGunPoint.position;
                 hookTr.SetParent(null);
             }
@@ -75,6 +77,8 @@ public class Hook : MonoBehaviour
                     virtualPointOnPlanet.position = hit.point;
                     grabbedToThis = virtualPointOnPlanet;
                     hookBehavior = HookBehavior.FlyingToGrab;
+                    SoundsController.Instance.PlaySound(SoundClipType.HookThrow);                    
+                    SoundsController.Instance.PlayHookLoop(false);
                     hookTr.position = hookGunPoint.position;
                     hookTr.SetParent(null);
                 }
@@ -87,12 +91,16 @@ public class Hook : MonoBehaviour
             if (hookBehavior == HookBehavior.Grabbed)
             {
                 hookBehavior = HookBehavior.RetractingWithPlayer;
+                SoundsController.Instance.PlayHookLoop(true);
             }
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
             if (hookBehavior != HookBehavior.InHand)
+            {
                 hookBehavior = HookBehavior.Retracting;
+                SoundsController.Instance.PlayHookLoop(true);
+            }
         }
 
     }
@@ -106,6 +114,8 @@ public class Hook : MonoBehaviour
             if (Vector3.SqrMagnitude(hookTr.position - grabbedToThis.position) < 0.001f)
             {
                 hookBehavior = HookBehavior.Grabbed;
+                SoundsController.Instance.PlayHookLoop(false);
+                SoundsController.Instance.PlaySoundAtCertainPlace(SoundClipType.HookGrab, hookTr.position);
             }
         }
         if (hookBehavior == HookBehavior.Grabbed) return;
@@ -115,7 +125,10 @@ public class Hook : MonoBehaviour
             if (Vector3.SqrMagnitude(hookTr.position - hookGunPoint.position) < 0.001f)
             {
                 hookBehavior = HookBehavior.InHand;
+                SoundsController.Instance.PlayHookLoop(false);
+                SoundsController.Instance.PlaySound(SoundClipType.HookTake);                
                 hookTr.SetParent(hookGunPoint);
+                grabbedToThis = null;
             }
         }
         if (hookBehavior == HookBehavior.RetractingWithPlayer)
@@ -125,6 +138,7 @@ public class Hook : MonoBehaviour
             if (Vector3.SqrMagnitude(grabbedToThis.position - hookGunPoint.position) < 5f)
             {
                 hookBehavior = HookBehavior.Retracting;
+                SoundsController.Instance.PlayHookLoop(true);
             }
 
             playerRb.velocity = vel;
