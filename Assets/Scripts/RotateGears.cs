@@ -23,7 +23,7 @@ public class RotateGears : MonoBehaviour
         {
             for (int i = 0; i < groupGears.Count; i++)
             {
-                groupGears[i].FixedUpdate();
+                //groupGears[i].FixedUpdate();
             }
         }
     }

@@ -18,9 +18,11 @@
           <e p="CrystalSpawn.cs" t="Include" />
           <e p="FPCPointer.cs" t="Include" />
           <e p="Gears.cs" t="Include" />
+          <e p="Hook.cs" t="Include" />
           <e p="Inventory.cs" t="Include" />
           <e p="Menu.cs" t="Include" />
           <e p="MyInterfaces.cs" t="Include" />
+          <e p="Rope.cs" t="Include" />
           <e p="RotateGears.cs" t="Include" />
           <e p="Test.cs" t="Include" />
           <e p="VolumeValue.cs" t="Include" />
