@@ -10,7 +10,7 @@ public class Hook : MonoBehaviour
     Transform hookTr;
     public Transform hookGunPoint;
     Camera cam;
-    float minDotAngle = 0.9f;
+    float minDotAngle = 0.95f;
     float curDotAngle;
     float hookSpeed = 60f;
     float playerRetractingSpeed = 35f;
@@ -21,6 +21,7 @@ public class Hook : MonoBehaviour
     bool hookTargetExists;
     Transform currentHookablePoint;
     Transform grabbedToThis;
+    public Transform virtualPointOnPlanet;
     public enum HookBehavior { InHand, FlyingToGrab, Grabbed, RetractingWithPlayer, Retracting }
     public HookBehavior hookBehavior;
     int checksAmountPerIteration = 10;
@@ -48,11 +49,15 @@ public class Hook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (hookTargetExists)
         {
             crosshair.position = cam.WorldToScreenPoint(currentHookablePoint.position);
+        }
 
-            if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (hookTargetExists)
             {
                 if (grabbedToThis == currentHookablePoint) return;
                 grabbedToThis = currentHookablePoint;
@@ -60,19 +65,36 @@ public class Hook : MonoBehaviour
                 hookTr.position = hookGunPoint.position;
                 hookTr.SetParent(null);
             }
-            if (Input.GetMouseButton(1))
+            else
             {
-                if (hookBehavior == HookBehavior.Grabbed)
+                RaycastHit hit;
+                Ray ray = new Ray(player.position, player.forward);
+                bool hitPlanet = Physics.Raycast(ray, out hit, hookDist, planetsOnly);
+                if (hitPlanet)
                 {
-                    hookBehavior = HookBehavior.RetractingWithPlayer;
+                    virtualPointOnPlanet.position = hit.point;
+                    grabbedToThis = virtualPointOnPlanet;
+                    hookBehavior = HookBehavior.FlyingToGrab;
+                    hookTr.position = hookGunPoint.position;
+                    hookTr.SetParent(null);
                 }
             }
-            if (Input.GetKeyDown(KeyCode.C))
+        }
+
+
+        if (Input.GetMouseButton(1))
+        {
+            if (hookBehavior == HookBehavior.Grabbed)
             {
-                if (hookBehavior != HookBehavior.InHand)
-                    hookBehavior = HookBehavior.Retracting;
+                hookBehavior = HookBehavior.RetractingWithPlayer;
             }
         }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            if (hookBehavior != HookBehavior.InHand)
+                hookBehavior = HookBehavior.Retracting;
+        }
+
     }
 
     void FixedUpdate()
@@ -96,12 +118,13 @@ public class Hook : MonoBehaviour
                 hookTr.SetParent(hookGunPoint);
             }
         }
-        if (hookBehavior == HookBehavior.RetractingWithPlayer){
+        if (hookBehavior == HookBehavior.RetractingWithPlayer)
+        {
             Vector3 vel = (hookTr.position - player.position).normalized * playerRetractingSpeed;
             //playerRb.velocity = Vector3.MoveTowards(playerRb.velocity, vel, Time.deltaTime);
             if (Vector3.SqrMagnitude(grabbedToThis.position - hookGunPoint.position) < 5f)
             {
-                hookBehavior = HookBehavior.Retracting;                
+                hookBehavior = HookBehavior.Retracting;
             }
 
             playerRb.velocity = vel;
@@ -114,10 +137,9 @@ public class Hook : MonoBehaviour
         int curId = 0;
         while (true)
         {
-            float curSqrDist = 9999999999f;
             if (hookTargetExists)
             {
-                curSqrDist = Vector3.SqrMagnitude(player.position - currentHookablePoint.position);
+                float curSqrDist = Vector3.SqrMagnitude(player.position - currentHookablePoint.position);
                 curDotAngle = DotAngle(currentHookablePoint, Mathf.Sqrt(curSqrDist));
                 if (curDotAngle < minDotAngle)
                 {
@@ -126,8 +148,8 @@ public class Hook : MonoBehaviour
                 else
                 {
                     float dist = Mathf.Sqrt(curSqrDist);
-                    bool planetInTheWay = Physics.Raycast(player.position, hookableAsteroids[curId].position - player.position, dist, planetsOnly);
-                    if (planetInTheWay) hookTargetExists = false;
+                    bool planetInTheWay = Physics.Raycast(player.position, currentHookablePoint.position - player.position, dist, planetsOnly);
+                    if (planetInTheWay) { hookTargetExists = false; }
                 }
             }
 
@@ -140,9 +162,9 @@ public class Hook : MonoBehaviour
                 {
                     float dist = Mathf.Sqrt(sqrDist);
                     float dotAngle = DotAngle(hookableAsteroids[curId], dist);
-                    if (hookTargetExists && dotAngle < curDotAngle) // sqrDist > curSqrDist)
+                    if (hookTargetExists && dotAngle < curDotAngle)
                     {
-                        //old target is better
+                        //old target is better                        
                     }
                     else
                     {
@@ -151,7 +173,6 @@ public class Hook : MonoBehaviour
                             bool planetInTheWay = Physics.Raycast(player.position, hookableAsteroids[curId].position - player.position, dist, planetsOnly);
                             if (!planetInTheWay)
                             {
-                                curSqrDist = sqrDist;
                                 curDotAngle = dotAngle;
                                 hookTargetExists = true;
                                 currentHookablePoint = hookableAsteroids[curId];

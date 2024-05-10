@@ -1087,6 +1087,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 542834370}
   m_CullTransparentMesh: 1
+--- !u!1 &547605641
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 547605642}
+  m_Layer: 0
+  m_Name: VirtualHookPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &547605642
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 547605641}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &581870591
 GameObject:
   m_ObjectHideFlags: 0
@@ -1828,6 +1859,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hookGunPoint: {fileID: 922544677}
+  virtualPointOnPlanet: {fileID: 547605642}
   hookBehavior: 0
   planetsAndAsteroids:
     serializedVersion: 2
@@ -2480,6 +2512,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33885924d167045a1b6f2e5f01c3d46f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crystal: {fileID: 0}
+  spawnCrystal: {x: 0, y: 0, z: 0}
+  btwbcrystals: 5
 --- !u!1 &1530418083
 GameObject:
   m_ObjectHideFlags: 0
@@ -3612,3 +3647,4 @@ SceneRoots:
   - {fileID: 1699677273}
   - {fileID: 1281987185}
   - {fileID: 348125707}
+  - {fileID: 547605642}
