@@ -35,7 +35,7 @@ public class ArtificialGravity : MonoBehaviour
     }
 
     void FixedUpdate()
-    {        
+    {
         closestAsteroid = ClosestAsteroidWithGravity();
         Vector3 dir = (closestAsteroid.position - (player.position)).normalized;
         //Ray ray = new Ray(player.position - player.up * 0.7f, dir);
@@ -78,12 +78,12 @@ public class ArtificialGravity : MonoBehaviour
             //lookRot = Quaternion.LookRotation(player.forward, hit.normal);
             projForwNoNorm = (player.forward - Vector3.Project(player.forward, hit.normal)).normalized;
             lookRot = Quaternion.LookRotation(projForwNoNorm, hit.normal);
-        //    lookRot = Quaternion.LookRotation(projForwNoNorm, -dir);
+            //    lookRot = Quaternion.LookRotation(projForwNoNorm, -dir);
         }
         transform.rotation = lookRot;
-
+        float rotSpeedModifier = 1 / (1 + Vector3.Distance(playerRb.position, transform.position));
         //Quaternion playerTargetRot = Quaternion.RotateTowards(playerRb.rotation, transform.rotation, 190f * Time.deltaTime);
-        Quaternion playerTargetRot = Quaternion.RotateTowards(playerRb.rotation, transform.rotation, 290f * Time.deltaTime);
+        Quaternion playerTargetRot = Quaternion.RotateTowards(playerRb.rotation, transform.rotation, 290f * Time.deltaTime * rotSpeedModifier);
         playerRb.MoveRotation(playerTargetRot);
     }
 
@@ -91,10 +91,11 @@ public class ArtificialGravity : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab) && false)//nah, no magnetic for now
         {
-            magneticBoots = !magneticBoots; 
+            magneticBoots = !magneticBoots;
             playerRb.isKinematic = magneticBoots;
         }
-        if (Input.GetKeyDown(KeyCode.Q)){
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
             Debug.Break();
         }
         if (Input.GetKeyDown(KeyCode.Z))
