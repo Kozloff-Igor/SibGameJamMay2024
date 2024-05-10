@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public enum SoundClipType { Whales, CrystalAppear, CrystalMelody, CrystalFinal, FootSteps, HookThrow, HookGrab, HookTake, Cogs, Pipes, Water, MinigameDone }
 
@@ -8,6 +9,7 @@ public class SoundsController : MonoBehaviour
 {
     public static SoundsController Instance;
     public AudioSource loopingAmbient;
+    public AudioSource planetMusic;
     public AudioSource loopingHook;
     public AudioSource playerSource;
     public AudioSource sourceInSpace;
@@ -21,6 +23,10 @@ public class SoundsController : MonoBehaviour
     public Clips[] allClips;
 
     int[] clipsIndexes;
+
+    [Header("_____")]
+    public Vector2 whalesCooldown;
+
 
     void Awake()
     {        
@@ -36,6 +42,8 @@ public class SoundsController : MonoBehaviour
                 }
             }
         }
+
+        StartCoroutine(WhailingWhales());
     }
 
     void Update()
@@ -61,5 +69,17 @@ public class SoundsController : MonoBehaviour
     public void PlayHookLoop(bool isOn)
     {
         loopingHook.enabled = isOn;
+    }
+
+    IEnumerator WhailingWhales()
+    {
+        while(true)
+        {
+            yield return new WaitForSeconds(Random.Range(whalesCooldown.x, whalesCooldown.y));
+            int id = clipsIndexes[(int)SoundClipType.Whales];
+            AudioClip clipToPlay = allClips[id].audioClips[Random.Range(0, allClips[id].audioClips.Length)];
+            loopingAmbient.PlayOneShot(clipToPlay, Random.Range(0.1f, 1f));
+        }
+
     }
 }
