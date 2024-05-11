@@ -84,6 +84,11 @@ public class QuestProgression : MonoBehaviour
 
     }
 
+    public void FinishTheGame()
+    {
+        Debug.Log("OLOLOWIN");
+    }
+
 
 
     public void DisablePlayer()
