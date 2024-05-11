@@ -58,10 +58,15 @@ public class SoundsController : MonoBehaviour
     void Update()
     {
         float dist = Vector3.Distance(closestMusicTransform.position, player.transform.position);
-        if (dist < 30f) 
+        Debug.Log(dist.ToString());
+        if (dist < 12f) 
         {
-//            closestMusic
-
+            planetMusic.volume = Mathf.MoveTowards(planetMusic.volume, 0.6f, Time.deltaTime * 0.4f);
+            loopingAmbient.volume = Mathf.MoveTowards(loopingAmbient.volume, 0f, Time.deltaTime * 0.6f);
+        } else
+        {
+            planetMusic.volume = Mathf.MoveTowards(planetMusic.volume, 0f, Time.deltaTime * 0.4f);
+            loopingAmbient.volume = Mathf.MoveTowards(loopingAmbient.volume, 1f, Time.deltaTime * 0.6f);
         }
 
 
@@ -71,7 +76,9 @@ public class SoundsController : MonoBehaviour
     {
         while (gameIsNotFinished)
         {
+            Transform oldClosestTransform = closestMusicTransform;
             float closestDist = Vector3.Distance(player.position, musicSourcesPlaces[0].transform.position);
+            int id = 0;
             closestMusicTransform = musicSourcesPlaces[0];
             for (int q = 1; q < musicSourcesPlaces.Length; q++)
             {
@@ -80,7 +87,14 @@ public class SoundsController : MonoBehaviour
                 {
                     closestDist = dist;
                     closestMusicTransform = musicSourcesPlaces[q];
+                    id = q;
                 }
+            }
+
+            if (oldClosestTransform != closestMusicTransform){
+                oldClosestTransform = closestMusicTransform;
+                planetMusic.clip = musicClips[id];
+                planetMusic.Play();
             }
 
             yield return new WaitForSeconds(0.1f);
