@@ -4,24 +4,51 @@ using UnityEngine;
 
 public class Lighthouse : MonoBehaviour, IInteractable
 {
-    public GameObject needToExplore; //is broken, go explore
-    public GameObject haveCrystals; //
-    public GameObject haveCogs;
-    public GameObject haveCrystalDust;
+    public GameObject needToExplore; //is broken, go explore   
+    public GameObject stoneReminder; //stone was good 
+    public GameObject haveCrystals; //have to mill them
+    public GameObject haveCogs; //can repair mill
+    public GameObject haveCrystalDust; // now i need magic water
     
-
-
-    public GameObject pipesCanvas;
+    public GameObject bottlesCanvas;
 
     public void OnInteraction()
-    {       
-        if (QuestProgression.Instance.haveStrangeWater)
-        {
-            //QuestProgression.ShowObjectForThreeSeconds(alreadyHaveStrangeWater);
+    {    
+        if (!(QuestProgression.Instance.haveCollectedCrystals || QuestProgression.Instance.cogsCollected > 0 ||
+        QuestProgression.Instance.haveStrangeWater || QuestProgression.Instance.haveCrystalDust || QuestProgression.Instance.visitedStone)) {
+            QuestProgression.ShowObjectForThreeSeconds(needToExplore);
             return;
         }
-        Debug.Log("Start pipes game");
-        pipesCanvas.SetActive(true);
+
+        if (QuestProgression.Instance.haveStrangeWater && QuestProgression.Instance.haveCrystalDust) 
+        {
+            bottlesCanvas.SetActive(true);
+            return;
+        }
+        
+        if (QuestProgression.Instance.haveCrystalDust)
+        {
+            QuestProgression.ShowObjectForThreeSeconds(haveCrystalDust);
+            return;
+        }
+
+        if (QuestProgression.Instance.cogsCollected > 0)
+        {
+            QuestProgression.ShowObjectForThreeSeconds(haveCogs);
+            return;
+        }
+
+        if (QuestProgression.Instance.haveCollectedCrystals)
+        {
+            QuestProgression.ShowObjectForThreeSeconds(haveCrystals);
+            return;
+        }
+        
+        if (QuestProgression.Instance.visitedStone)
+        {
+            QuestProgression.ShowObjectForThreeSeconds(stoneReminder);
+            return;
+        }
         
 
     }

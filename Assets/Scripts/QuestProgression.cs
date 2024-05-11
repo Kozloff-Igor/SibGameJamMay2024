@@ -7,6 +7,7 @@ public class QuestProgression : MonoBehaviour
 {
     public static QuestProgression Instance;
 
+    public bool visitedStone;
     public bool haveCollectedCrystals;
     public int cogsCollected;
     public int cogsRequired;
