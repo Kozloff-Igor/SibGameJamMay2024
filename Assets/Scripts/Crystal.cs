@@ -61,7 +61,7 @@ public class Crystal : MonoBehaviour, IInteractable
         while (Vector3.SqrMagnitude(transform.position - targetPosition) > 0)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 90f * Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 30f * Time.deltaTime);
             yield return new WaitForEndOfFrame();
 
 
