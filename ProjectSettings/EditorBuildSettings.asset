@@ -12,6 +12,15 @@ EditorBuildSettings:
     path: Assets/Scenes/GameScene.unity
     guid: 6421db58d10b97b56ba380621b564c2c
   - enabled: 1
+    path: Assets/Scenes/MyMenu.unity
+    guid: dcaeb8d9ca3b05f63b21998d1deb1897
+  - enabled: 1
+    path: Assets/Scenes/IntroComics.unity
+    guid: 6f341d1d7fe5d70d286c5fd9d2049314
+  - enabled: 1
     path: Assets/Scenes/JumpingGravity.unity
     guid: 8722235f778939d5ebee2c7a425a1059
+  - enabled: 1
+    path: Assets/Scenes/OutroComics.unity
+    guid: 8297724e1c5adb882a6b8e4c26e0f6de
   m_configObjects: {}

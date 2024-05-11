@@ -58,8 +58,8 @@ public class SoundsController : MonoBehaviour
     void Update()
     {
         float dist = Vector3.Distance(closestMusicTransform.position, player.transform.position);
-        Debug.Log(dist.ToString());
-        if (dist < 12f) 
+//        Debug.Log(dist.ToString());
+        if (dist < 17f) 
         {
             planetMusic.volume = Mathf.MoveTowards(planetMusic.volume, 0.6f, Time.deltaTime * 0.4f);
             loopingAmbient.volume = Mathf.MoveTowards(loopingAmbient.volume, 0f, Time.deltaTime * 0.6f);

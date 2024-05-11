@@ -148,6 +148,7 @@ public class BottlesPuzzle : MonoBehaviour
     {
         currentBottle = bottleSingle;
         bottleIsSelected = true;
+        SoundsController.Instance.PlaySound(SoundClipType.Water);
     }
 
     public void DeselectBottle()
@@ -155,6 +156,8 @@ public class BottlesPuzzle : MonoBehaviour
         if (currentBottle != null) { currentBottle.isSelected = false; }
         currentBottle = null;
         bottleIsSelected = false;
+        SoundsController.Instance.PlaySound(SoundClipType.Water);
+        CheckIfPuzzleSolved();
     }
 
     void CheckIfPuzzleSolved()
@@ -175,11 +178,23 @@ public class BottlesPuzzle : MonoBehaviour
 
         if (goodBottlesFound == 7)
         {
+            SoundsController.Instance.PlaySound(SoundClipType.MinigameDone);
             QuestProgression.Instance.FinishTheGame();
         }
 
+        Debug.Log(goodBottlesFound.ToString());
     }
 
+    public void BTN_Restart()
+    {
+        if (SomeBallsAreFlying()) return;
+        currentBottle = null;
+        bottleIsSelected = false;
+        for (int i = 0; i < allBottles.Length; i++)
+        {            
+            allBottles[i].Restart();
+        }
 
+    }
 
 }

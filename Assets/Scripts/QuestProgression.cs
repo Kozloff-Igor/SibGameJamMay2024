@@ -87,7 +87,12 @@ public class QuestProgression : MonoBehaviour
 
     public void FinishTheGame()
     {
-        Debug.Log("OLOLOWIN");
+        MySceneController mySceneController = FindObjectOfType<MySceneController>();
+        if (mySceneController) {
+            mySceneController.BTN_OpenSceneAfterBlackingOut(3);
+        } else{
+            UnityEngine.SceneManagement.SceneManager.LoadScene(3);
+        }
     }
 
 

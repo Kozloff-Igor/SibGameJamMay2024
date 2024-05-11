@@ -9,6 +9,7 @@ public class BottleSingle : MonoBehaviour
     public Image[] myBallsImages;
     public bool isSelected;
 
+    public int[] initialBalls;
 
     public void BTN_CLick()
     {
@@ -34,7 +35,8 @@ public class BottleSingle : MonoBehaviour
 
     }
 
-    public void RemoveBall(int position){
+    public void RemoveBall(int position)
+    {
         myBalls[position] = 0;
         myBallsImages[position].color = BottlesPuzzle.Instance.colors[0];
     }
@@ -45,11 +47,24 @@ public class BottleSingle : MonoBehaviour
         myBallsImages[position].color = BottlesPuzzle.Instance.colors[color];
     }
 
-    void Start()
+    public void Restart()
     {
         for (int i = 0; i < myBalls.Length; i++)
         {
+            myBalls[i] = initialBalls[i];
+            myBallsImages[i].color = BottlesPuzzle.Instance.colors[myBalls[i]];            
+        }
+        isSelected = false;
+        Debug.Log("RESTARTED");
+    }
+
+    void Start()
+    {
+        initialBalls = new int[myBalls.Length];
+        for (int i = 0; i < myBalls.Length; i++)
+        {
             myBallsImages[i].color = BottlesPuzzle.Instance.colors[myBalls[i]];
+            initialBalls[i] = myBalls[i];
         }
 
     }
