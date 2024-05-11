@@ -42,9 +42,9 @@ public class Crystal : MonoBehaviour, IInteractable
         if (!lastCrystal)
         {
             crystalNext.GrowCrystal();
-        } else{
-            SoundsController.Instance.PlaySound(SoundClipType.CrystalFinal);
+        } else{            
             Debug.Log("Got crystals");
+            QuestProgression.Instance.CollectCrystals();
         }
 
     }
