@@ -1719,6 +1719,79 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 5.000001
   m_Center: {x: 0.00027894974, y: 0.00009536745, z: 0}
+--- !u!1001 &800793575
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: b80a50336b100a0d896af9eaf272c81d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b80a50336b100a0d896af9eaf272c81d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.0371976
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b80a50336b100a0d896af9eaf272c81d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b80a50336b100a0d896af9eaf272c81d,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.70680547
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b80a50336b100a0d896af9eaf272c81d,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7073963
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b80a50336b100a0d896af9eaf272c81d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.0038770172
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b80a50336b100a0d896af9eaf272c81d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.0011986396
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b80a50336b100a0d896af9eaf272c81d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b80a50336b100a0d896af9eaf272c81d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b80a50336b100a0d896af9eaf272c81d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: b80a50336b100a0d896af9eaf272c81d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4015227753baa00189509509a7948f50, type: 2}
+    - target: {fileID: 919132149155446097, guid: b80a50336b100a0d896af9eaf272c81d,
+        type: 3}
+      propertyPath: m_Name
+      value: SkySphere
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b80a50336b100a0d896af9eaf272c81d, type: 3}
 --- !u!1001 &827934741
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3386,6 +3459,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FirstPersonController
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459864851310106426, guid: 6bacecc4f3df9584198879c73a6b6c36,
+        type: 3}
+      propertyPath: far clip plane
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459864851310106426, guid: 6bacecc4f3df9584198879c73a6b6c36,
+        type: 3}
+      propertyPath: near clip plane
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 4459864851310106426, guid: 6bacecc4f3df9584198879c73a6b6c36,
         type: 3}
@@ -5363,3 +5446,4 @@ SceneRoots:
   - {fileID: 2008072426}
   - {fileID: 101607711}
   - {fileID: 1168166852}
+  - {fileID: 800793575}
