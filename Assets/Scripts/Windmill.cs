@@ -6,6 +6,9 @@ public class Windmill : MonoBehaviour, IInteractable
 {
     public GameObject textNeedCrystals;
     public GameObject needCogs;
+    public GameObject alreadyHaveDust;
+
+    public GameObject cogCanvas;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,8 +33,14 @@ public class Windmill : MonoBehaviour, IInteractable
             QuestProgression.ShowObjectForThreeSeconds(needCogs);
             return;
         }
+        if (QuestProgression.Instance.haveCrystalDust)
+        {
+            QuestProgression.ShowObjectForThreeSeconds(alreadyHaveDust);
+            return;
+        }
         Debug.Log("Start cogs game");
-        QuestProgression.Instance.CollectCrystalsDust();   
+        cogCanvas.SetActive(true);
+        //QuestProgression.Instance.CollectCrystalsDust();   
 
 
     }

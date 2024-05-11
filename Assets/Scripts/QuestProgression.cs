@@ -26,7 +26,7 @@ public class QuestProgression : MonoBehaviour
     Rigidbody playerRb;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         Instance = this;
         firstPersonController = FindObjectOfType<FirstPersonController>();
@@ -69,6 +69,7 @@ public class QuestProgression : MonoBehaviour
     public void CollectCrystalsDust()
     {
         if (haveCrystalDust) return;     
+        haveCrystalDust = true;
         cogsIcon.SetActive(false);   
         crystalsIcon.SetActive(false);
         crystalsDustIcon.SetActive(true);
