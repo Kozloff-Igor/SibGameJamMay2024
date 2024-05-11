@@ -61,8 +61,7 @@ public class GearSingle : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
         if (sqrDist < 1000f)
         {
-            bool canBePlaced = closestPin.CheckIfICanBePlaced(this);
-            Debug.Log(closestPin);
+            bool canBePlaced = closestPin.CheckIfICanBePlaced(this);            
             if (canBePlaced)
             {
                 image.color = Color.green;

@@ -11,12 +11,13 @@ public class QuestProgression : MonoBehaviour
     public int cogsCollected;
     public int cogsRequired;
     public bool haveCrystalDust;
-    public bool pipesFixed;
+    public bool haveStrangeWater;
 
     [Header("UI stuff")]
     public GameObject crystalsIcon;
     public GameObject crystalsDustIcon;
     public GameObject cogsIcon;
+    public GameObject strangeWaterIcon;
     public TMP_Text cogsCollectedText;
 
 
@@ -56,7 +57,7 @@ public class QuestProgression : MonoBehaviour
             crystalsIcon.SetActive(true);
             SoundsController.Instance.PlaySound(SoundClipType.CrystalFinal);
         }
-        haveCollectedCrystals = true;        
+        haveCollectedCrystals = true;
     }
 
     public void CollectCog()
@@ -68,13 +69,22 @@ public class QuestProgression : MonoBehaviour
     }
     public void CollectCrystalsDust()
     {
-        if (haveCrystalDust) return;     
+        if (haveCrystalDust) return;
         haveCrystalDust = true;
-        cogsIcon.SetActive(false);   
+        cogsIcon.SetActive(false);
         crystalsIcon.SetActive(false);
         crystalsDustIcon.SetActive(true);
+    }
+
+    public void CollectStrangeWater()
+    {
+        if (haveStrangeWater) return;
+        haveStrangeWater = true;
+        strangeWaterIcon.SetActive(true);
 
     }
+
+
 
     public void DisablePlayer()
     {
