@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 5248337602808325154}
   - component: {fileID: 5950151141258966206}
   - component: {fileID: 7541979562627420528}
-  - component: {fileID: 3928973527147627313}
   - component: {fileID: 6927238889411027736}
+  - component: {fileID: 2310744657574235687}
   m_Layer: 11
   m_Name: "\u0421rystals"
   m_TagString: Untagged
@@ -85,8 +85,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &3928973527147627313
-CapsuleCollider:
+--- !u!114 &6927238889411027736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7544335395166906211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33885924d167045a1b6f2e5f01c3d46f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crystalNext: {fileID: 0}
+  firstCrystal: 0
+  lastCrystal: 0
+  speed: 0.02
+--- !u!64 &2310744657574235687
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -103,24 +119,7 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6927238889411027736
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7544335395166906211}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33885924d167045a1b6f2e5f01c3d46f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  crystal: {fileID: 0}
-  spawnCrystal: {x: 0, y: 0, z: 0}
-  speed: 0.02
-  valueGrow: 0.25
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 3454380145465690022, guid: 155620db3985bbc4a992921cc003710b, type: 3}

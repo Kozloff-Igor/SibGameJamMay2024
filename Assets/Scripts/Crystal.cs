@@ -5,40 +5,70 @@ using UnityEngine;
 
 public class Crystal : MonoBehaviour, IInteractable
 {
-    
-    [SerializeField]private GameObject crystal;
-    [SerializeField]private Vector3 spawnCrystal;
-    private int CountCrystal = 1;
+
+    [SerializeField] private Crystal crystalNext;
+
+    [SerializeField] private bool firstCrystal;
+    [SerializeField] private bool lastCrystal;
+    bool alreadyUsed;
+    Vector3 targetPosition;
+    Quaternion targetRotation;
     public float speed = 0.2f;
-    public float valueGrow = 0.25f;
+
+
+    void Start()
+    {
+        targetPosition = transform.position;
+        targetRotation = transform.rotation;
+        if (!firstCrystal)
+        {
+            transform.Translate(Vector3.down * 3f, Space.Self);
+            transform.Rotate(0, 179, 0, Space.Self);
+        }
+    }
+
     public void OnInteraction()
     {
         Debug.Log("Player pressed E on me", gameObject);
 
-        if (CountCrystal < 5)
+        if (alreadyUsed)
         {
-            GrowCrystal();
+            SoundsController.Instance.PlaySound(SoundClipType.CrystalMelody);
+            return;
         }
-        
+
+        alreadyUsed = true;
+
+        if (!lastCrystal)
+        {
+            crystalNext.GrowCrystal();
+        } else{
+            SoundsController.Instance.PlaySound(SoundClipType.CrystalFinal);
+            Debug.Log("Got crystals");
+        }
+
     }
-    void GrowCrystal()
+    public void GrowCrystal()
     {
-       // Debug.Log(this.transform.position.y);
+        // Debug.Log(this.transform.position.y);
+        SoundsController.Instance.PlaySoundAtCertainPlace(SoundClipType.CrystalAppear, transform.position);
         StartCoroutine(Grow());
-        CountCrystal++;
+
     }
 
     IEnumerator Grow()
     {
-        while (crystal.transform.position.y < this.transform.position.y)
+        while (Vector3.SqrMagnitude(transform.position - targetPosition) > 0)
         {
-            spawnCrystal = crystal.transform.position;
-            spawnCrystal.y += valueGrow;
-            crystal.transform.position = spawnCrystal;
-            yield return new WaitForSeconds(speed);
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 90f * Time.deltaTime);
+            yield return new WaitForEndOfFrame();
+
+
+            //yield return new WaitForSeconds(0.1f);
         }
-        
-        
+
+
     }
-    
+
 }
